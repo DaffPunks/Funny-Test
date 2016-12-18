@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <title>Your result</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
     <?=link_tag('css/bootstrap.min.css'); ?>
-    <?=link_tag('css/style.css?'); ?>
+    <?=link_tag('css/style.css'); ?>
     <script src="<?=base_url();?>js/jquery.min.js"></script>
 </head>
 <body>
