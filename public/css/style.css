@@ -556,6 +556,10 @@ footer {
   .type-img {
     margin-bottom: 20px;
     text-align: center; }
+  .type-happy {
+    margin: auto;
+    background-size: contain;
+    background: url("../image/happy.png") no-repeat center; }
   .type-desc {
     height: 100%;
     font-size: 30px; }

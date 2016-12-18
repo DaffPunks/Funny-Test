@@ -18,7 +18,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row type-row flex-v-around">
             <div class="type-title">YOUR RESULTS:</div>
             <div class="row type-main">
-                <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 type-img v-center"><img src="<?=base_url();?>image/happy.png"></div><!--
+                <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 type-img v-center">
+                    <div class="type-happy">
+                        <img src="<?=base_url();?>image/happy.png" style="visibility: hidden">
+                    </div>
+                </div><!--
                 --><div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 type-desc v-center">
                     <div>You are a person who often chooses "yes", congratulations.</div>
                 </div>
