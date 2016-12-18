@@ -1,0 +1,42 @@
+$darkGreen: #1A535C;
+$lightGreen: #4ECDC4;
+$mintCream: #F7FFF7;
+$lightRed: #FF6B6B;
+$gold: #FFE66D;
+$text: #47bbb3;
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: $mintCream;
+  color: $text;
+  font-family: 'Lato', sans-serif;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: $text;
+  &:hover {
+    color: $text;
+    text-decoration: none;
+  }
+}
+
+input, button {
+  color: $mintCream;
+}
+
+button:focus {
+  outline: 0;
+}
+
+ul {
+  list-style: none;
+  li {
+    margin-left: 20px;
+    display: inline-block;
+  }
+}

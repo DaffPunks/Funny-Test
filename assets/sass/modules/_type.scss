@@ -1,0 +1,51 @@
+.type {
+  height: 80%;
+  margin-top: 10%;
+
+  &-row {
+    height: 100%;
+  }
+
+  &-container {
+    //height: 100%;
+    margin-bottom: 50px;
+  }
+
+  &-title {
+    font-size: 30px;
+    text-align: center;
+    @include respond-to(small-screens) {
+      margin-bottom: 20px;
+    }
+  }
+
+  &-btn {
+    color: white;
+    background-color: $lightGreen;
+
+    &:hover {
+      color: white;
+    }
+
+    @include respond-to(small-screens) {
+      margin-bottom: 20px;
+    }
+  }
+
+  &-img {
+    margin-bottom: 20px;
+  }
+
+  &-desc {
+    height: 100%;
+    font-size: 30px;
+    @include respond-to(small-screens) {
+      margin-bottom: 40px;
+      text-align: center
+    }
+  }
+
+  &-btn-wrap {
+    text-align: center;
+  }
+}
