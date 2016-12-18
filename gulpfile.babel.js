@@ -6,7 +6,7 @@ const babel = require('gulp-babel');
 
 var paths = {
     style: 'assets/sass/**/*.scss',
-    styleIndex: 'assets/sass/style.scss',
+    styleIndex: 'assets/sass/*.scss',
     script: 'assets/js/**/*.js',
     src: 'public/',
     npmJS: ['node_modules/jquery/dist/jquery.min.js'],

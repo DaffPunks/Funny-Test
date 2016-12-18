@@ -1,5 +1,5 @@
 $small: 750px;
-$large: 1170px;
+$large: 1200px;
 
 @mixin respond-to($media) {
   @if $media == small-screens {

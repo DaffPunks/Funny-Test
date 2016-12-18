@@ -18,9 +18,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row type-row flex-v-around">
             <div class="type-title">YOUR RESULTS:</div>
             <div class="row type-main">
-                <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 type-img v-center"><img src="<?=base_url();?>image/angry.png"></div><!--
+                <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 type-img v-center">
+                    <div class="type-angry">
+                        <img src="<?=base_url();?>image/angry.png" style="visibility: hidden">
+                    </div>
+                </div><!--
                 --><div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 type-desc v-center">
-                    <div>You are a person who often chooses "yes", congratulations.</div>
+                    <div>It looks like you have a bad mood. Don't worry. Anyway, you are the best.</div>
                 </div>
             </div>
             <div class="type-btn-wrap">
@@ -31,33 +35,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </section>
 
 
-<!--//You are a person who often chooses "yes", congratulations.-->
-<div class="modal">
-    <img class="modal-cup" src="<?=base_url();?>image/sorry-cat.png" width="100">
-    <div class="modal-title">Sorry</div>
-    <div class="modal-text">You didn't win.</div>
-    <div class="modal-footer">
-        <button class="main-button modal-btn">Don't worry</button>
-    </div>
-</div>
-<!--<div class="modal">
-    <img class="modal-cup" src="<?/*=base_url();*/?>image/cup.png">
-    <div class="modal-title">Congratulations</div>
-    <div class="modal-text">You won the lottery.</div>
-    <div class="modal-footer">
-        <button class="main-button yes-btn modal-btn">Have a beer</button>
-    </div>
-</div>-->
 
-<!--<script src="--><?///*=base_url();*/?><!--js/script.js"></script>-->
-<script>
-    $(document).ready(function () {
-        $(".modal").addClass("modal-show");
-
-        $(".modal-btn").click(function () {
-            $(".modal").removeClass("modal-show");
-        });
-    });
-</script>
-</body>
-</html>

@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div><!--
                 --><div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 type-desc v-center">
-                    <div>You are a person who often chooses "yes", congratulations.</div>
+                    <div>You are a person who often chooses "yes", congratulations. You're on top of the world.</div>
                 </div>
             </div>
             <div class="type-btn-wrap">
@@ -35,23 +35,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </section>
 
 
-<!--//You are a person who often chooses "yes", congratulations.-->
-<div class="modal">
-    <img class="modal-cup" src="<?=base_url();?>image/sorry-cat.png" width="100">
-    <div class="modal-title">Sorry</div>
-    <div class="modal-text">You didn't win.</div>
-    <div class="modal-footer">
-        <button class="main-button modal-btn">Don't worry</button>
+<?php if($isWinner) { ?>
+    <div class="modal">
+        <img class="modal-cup" src="<?=base_url();?>image/cup.png">
+        <div class="modal-title">Congratulations</div>
+        <div class="modal-text">You won the lottery.</div>
+        <div class="modal-footer">
+            <button class="main-button yes-btn modal-btn">Have a beer</button>
+        </div>
     </div>
-</div>
-<!--<div class="modal">
-    <img class="modal-cup" src="<?/*=base_url();*/?>image/cup.png">
-    <div class="modal-title">Congratulations</div>
-    <div class="modal-text">You won the lottery.</div>
-    <div class="modal-footer">
-        <button class="main-button yes-btn modal-btn">Have a beer</button>
+
+<?php } else { ?>
+    <div class="modal">
+        <img class="modal-cup" src="<?=base_url();?>image/sorry-cat.png" width="100">
+        <div class="modal-title">Sorry</div>
+        <div class="modal-text">You didn't win.</div>
+        <div class="modal-footer">
+            <button class="main-button modal-btn">Don't worry</button>
+        </div>
     </div>
-</div>-->
+<?php } ?>
 
 <!--<script src="--><?///*=base_url();*/?><!--js/script.js"></script>-->
 <script>

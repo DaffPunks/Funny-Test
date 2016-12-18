@@ -7,6 +7,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var questionsArray = [];
 var currentQuestion = 1;
 var answers = [];
+var count = void 0;
 
 var Questioner = function () {
     function Questioner() {
@@ -16,11 +17,13 @@ var Questioner = function () {
     _createClass(Questioner, null, [{
         key: "init",
         value: function init(selector) {
-            //Hide questions
+            //Hide instance questions
             document.querySelector(selector).style.display = "none";
 
             //Take questions with answers and save to array
             var childs = document.querySelector(selector).children;
+
+            count = childs.length;
 
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
@@ -54,6 +57,8 @@ var Questioner = function () {
                 }
             }
 
+            var translate = 0;
+
             for (var i = 0; i < questionsArray.length; i++) {
 
                 var newEl = document.createElement("div");
@@ -61,20 +66,29 @@ var Questioner = function () {
                 newEl.className = "row main-row";
                 newEl.setAttribute("data-question", i + 1);
 
-                if (i != 0) {
-                    newEl.style.transform = 'translateX(125%)';
-                }
+                newEl.style.transform = 'translateX(' + translate + '%)';
+
+                translate += 125;
 
                 var el = document.getElementById('form');
                 el.appendChild(newEl);
             }
         }
     }, {
+        key: "changePage",
+        value: function changePage(number) {
+            for (var i = 0; i < count; i++) {
+                var points = 125 * i - 125 * (number - 1);
+                document.querySelector('[data-question="' + (i + 1) + '"]').style.transform = 'translateX(' + points + '%)';
+            }
+            currentQuestion = number;
+            Questioner.changeQuestionPage();
+        }
+    }, {
         key: "prevQuestion",
-        value: function prevQuestion(number) {
-            if (number > 1) {
-                $('[data-question="' + number + '"]').css("transform", "translateX(125%)");
-                $('[data-question="' + (number - 1) + '"]').css("transform", "translateX(0)");
+        value: function prevQuestion() {
+            if (currentQuestion > 1) {
+                this.changePage(--currentQuestion);
 
                 return true;
             } else {
@@ -83,15 +97,24 @@ var Questioner = function () {
         }
     }, {
         key: "nextQuestion",
-        value: function nextQuestion(number) {
-            if (number < questionsArray.length) {
-                $('[data-question="' + number + '"]').css("transform", "translateX(-125%)");
-                $('[data-question="' + (number + 1) + '"]').css("transform", "translateX(0)");
+        value: function nextQuestion() {
+            if (currentQuestion < count) {
+                this.changePage(++currentQuestion);
 
                 return true;
             } else {
                 return false;
             }
+        }
+    }, {
+        key: "unansweredQuestion",
+        value: function unansweredQuestion() {
+            for (var i = 0; i < count; i++) {
+                if (answers[i] === undefined) {
+                    return i + 1;
+                }
+            }
+            return false;
         }
     }, {
         key: "changeQuestionPage",
@@ -108,6 +131,7 @@ var Progress = function () {
         key: "increaseProgress",
         value: function increaseProgress() {
             if (this._progress < this._amount) {
+
                 this._progress++;
                 document.querySelector(this._barProgress).style.width = 100 / this._amount * this._progress + "%";
 
@@ -131,13 +155,6 @@ var Progress = function () {
         document.querySelector(barProgress).style.width = 100 / this._amount + "%";
     }
 
-    _createClass(Progress, [{
-        key: "isCompleted",
-        value: function isCompleted() {
-            return this._amount == this._progress;
-        }
-    }]);
-
     return Progress;
 }();
 
@@ -145,16 +162,16 @@ Questioner.init("#questions");
 var progressBar = new Progress(".header-count", ".current-progress", ".header-amount", questionsArray.length);
 
 function takeAnswer(decision) {
-    answers[currentQuestion - 1] = decision;
+    answers[currentQuestion - 1] = true;
     document.querySelector('input[data-id="' + currentQuestion + '"]').value = decision;
 
     if (progressBar.increaseProgress()) {
-        Questioner.nextQuestion(currentQuestion);
-        currentQuestion++;
-    } else {
+        if (!Questioner.nextQuestion()) {
+            Questioner.changePage(Questioner.unansweredQuestion());
+        }
+    } else if (!Questioner.unansweredQuestion()) {
         $("#form").submit();
     }
-    Questioner.changeQuestionPage();
 }
 
 //Yes button
@@ -169,16 +186,10 @@ $(".no-btn").on("click", function () {
 
 //Back button
 $(".footer-back").on("click", function () {
-    if (Questioner.prevQuestion(currentQuestion)) {
-        currentQuestion--;
-    }
-    Questioner.changeQuestionPage();
+    Questioner.prevQuestion();
 });
 
 //Next button
 $(".footer-next").on("click", function () {
-    if (Questioner.nextQuestion(currentQuestion)) {
-        currentQuestion++;
-    }
-    Questioner.changeQuestionPage();
+    Questioner.nextQuestion();
 });

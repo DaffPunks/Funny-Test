@@ -3,29 +3,62 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Quiz extends CI_Controller
 {
-
-    public function result()
+    public function __construct()
     {
+        parent::__construct();
+
         $this->load->helper('html');
         $this->load->helper('url');
 
-        $rightAnswers = 0;
+        $this->load->library('parser');
+
+        $this->load->model('user_model');
+    }
+
+    public function result()
+    {
 
         $answers = $this->input->post("answers");
-        if ($answers[0] == "Y") $rightAnswers++;
-        if ($answers[1] == "Y") $rightAnswers++;
-        if ($answers[2] == "Y") $rightAnswers++;
-        if ($answers[3] == "Y") $rightAnswers++;
+        $type = $this->checkAnswers($answers);
 
+        $data["isWinner"] = false;
 
-        if($rightAnswers >= 4) {
-            $this->load->view('type_positive');
-        } else if ($rightAnswers < 4 && $rightAnswers > 1) {
-            $this->load->view('type_neutral');
-        } else if ($rightAnswers <= 1) {
-            $this->load->view('type_negative');
+        $this->user_model->create_user($type, false);
+
+        if($type == 3) {
+            $this->load->view('type_positive', $data);
+        } else if ($type == 2) {
+            $this->load->view('type_neutral', $data);
+        } else if ($type == 1) {
+            $this->load->view('type_negative', $data);
+        } else {
+            echo "Something goes wrong";
+            die();
+        }
+        $this->load->view('lottery_modal', $data);
+        $this->load->view('body_close');
+
+    }
+
+    private function checkAnswers($answers) {
+        $step = count($answers) / 4;
+        $count = 0;
+
+        if (count($answers) )
+
+        foreach ($answers as $answer) {
+            if($answer == "Y"){
+                $count++;
+            }
         }
 
+        if ($count <= $step) {
+            return 1;
+        } else if ($count > $step && $count < $step * 3) {
+            return 2;
+        } else {
+            return 3;
+        }
     }
 
 }

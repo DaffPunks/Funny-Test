@@ -1,15 +1,18 @@
 let questionsArray = [];
 let currentQuestion = 1;
 let answers = [];
+let count;
 
 class Questioner {
 
     static init(selector) {
-        //Hide questions
+        //Hide instance questions
         document.querySelector(selector).style.display = "none";
 
         //Take questions with answers and save to array
         let childs = document.querySelector(selector).children;
+
+        count = childs.length;
 
         for (let question of childs) {
 
@@ -21,6 +24,8 @@ class Questioner {
                 "answer": answer
             });
         }
+
+        var translate = 0;
 
         for (let i = 0; i < questionsArray.length; i++) {
 
@@ -40,21 +45,28 @@ class Questioner {
             newEl.className = "row main-row";
             newEl.setAttribute("data-question", i + 1);
 
-            if (i != 0) {
-                newEl.style.transform = 'translateX(125%)';
-            }
+
+            newEl.style.transform = 'translateX(' + translate + '%)';
+
+            translate += 125;
 
             let el = document.getElementById('form');
             el.appendChild(newEl);
         }
-
-
     }
 
-    static prevQuestion(number) {
-        if (number > 1) {
-            $('[data-question="' + number + '"]').css("transform", "translateX(125%)");
-            $('[data-question="' + (number - 1) + '"]').css("transform", "translateX(0)");
+    static changePage(number) {
+        for (let i = 0; i < count; i++) {
+            let points = (125 * i) - (125 * (number - 1));
+            document.querySelector('[data-question="' + (i + 1) + '"]').style.transform = 'translateX(' + points + '%)';
+        }
+        currentQuestion = number;
+        Questioner.changeQuestionPage();
+    }
+
+    static prevQuestion() {
+        if (currentQuestion > 1) {
+            this.changePage(--currentQuestion);
 
             return true;
 
@@ -63,16 +75,24 @@ class Questioner {
         }
     }
 
-    static nextQuestion(number) {
-        if (number < questionsArray.length) {
-            $('[data-question="' + number + '"]').css("transform", "translateX(-125%)");
-            $('[data-question="' + (number + 1) + '"]').css("transform", "translateX(0)");
+    static nextQuestion() {
+        if (currentQuestion < count) {
+            this.changePage(++currentQuestion);
 
             return true;
 
         } else {
             return false;
         }
+    }
+
+    static unansweredQuestion() {
+        for (let i = 0; i < count; i++) {
+            if(answers[i] === undefined) {
+                return i + 1;
+            }
+        }
+        return false;
     }
 
     static changeQuestionPage() {
@@ -84,6 +104,7 @@ class Progress {
 
     increaseProgress() {
         if (this._progress < this._amount) {
+
             this._progress++;
             document.querySelector(this._barProgress).style.width = (100 / this._amount * this._progress ) + "%";
 
@@ -104,25 +125,22 @@ class Progress {
         document.querySelector(barProgress).style.width = (100 / this._amount) + "%";
     }
 
-    isCompleted() {
-        return this._amount == this._progress;
-    }
 }
 
 Questioner.init("#questions");
 let progressBar = new Progress(".header-count", ".current-progress", ".header-amount", questionsArray.length);
 
 function takeAnswer(decision) {
-    answers[currentQuestion - 1] = decision;
+    answers[currentQuestion - 1] = true;
     document.querySelector('input[data-id="' + currentQuestion + '"]').value = decision;
 
     if (progressBar.increaseProgress()) {
-        Questioner.nextQuestion(currentQuestion);
-        currentQuestion++;
-    } else {
+        if(!Questioner.nextQuestion()) {
+            Questioner.changePage(Questioner.unansweredQuestion());
+        }
+    } else if (!Questioner.unansweredQuestion()){
         $("#form").submit();
     }
-    Questioner.changeQuestionPage();
 }
 
 
@@ -138,16 +156,10 @@ $(".no-btn").on("click", function () {
 
 //Back button
 $(".footer-back").on("click", function () {
-    if (Questioner.prevQuestion(currentQuestion)) {
-        currentQuestion--;
-    }
-    Questioner.changeQuestionPage();
+    Questioner.prevQuestion();
 });
 
 //Next button
 $(".footer-next").on("click", function () {
-    if (Questioner.nextQuestion(currentQuestion)) {
-        currentQuestion++;
-    }
-    Questioner.changeQuestionPage();
+    Questioner.nextQuestion();
 });
