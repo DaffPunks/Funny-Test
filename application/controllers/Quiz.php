@@ -13,17 +13,29 @@ class Quiz extends CI_Controller
         $this->load->library('parser');
 
         $this->load->model('user_model');
+        $this->load->model('lottery_model');
     }
 
     public function result()
     {
 
+        $this->lottery_model->increaseVisitors();
+
+        //Take answers and check type
         $answers = $this->input->post("answers");
         $type = $this->checkAnswers($answers);
 
-        $data["isWinner"] = false;
+        $win_day = $this->lottery_model->testLuck();
 
-        $this->user_model->create_user($type, false);
+        $user_id = $this->user_model->create_user($type, (bool)$win_day);
+
+        $data["isWinner"] = $win_day;
+
+        if($win_day) {
+
+            $this->lottery_model->checkWinner($win_day, $user_id);
+        }
+
 
         if($type == 3) {
             $this->load->view('type_positive', $data);

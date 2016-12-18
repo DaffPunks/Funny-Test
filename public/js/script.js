@@ -171,6 +171,8 @@ function takeAnswer(decision) {
         }
     } else if (!Questioner.unansweredQuestion()) {
         $("#form").submit();
+    } else {
+        Questioner.changePage(Questioner.unansweredQuestion());
     }
 }
 

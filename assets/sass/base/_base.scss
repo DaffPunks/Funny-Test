@@ -25,6 +25,9 @@ a {
     color: $text;
     text-decoration: none;
   }
+  &:focus {
+    outline: none;
+  }
 }
 
 input, button {

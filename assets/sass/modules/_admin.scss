@@ -1,0 +1,26 @@
+.admin {
+  font-size: 16px;
+  margin-bottom: 50px;
+
+  &-title {
+    margin: 20px 0;
+    font-size: 30px;
+    text-align: center;
+  }
+
+  &-days {
+    border-radius: 5px;
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  }
+
+  &-day {
+    margin-top: 5px;
+  }
+}
+
+.user-winner {
+  color: gold;
+}

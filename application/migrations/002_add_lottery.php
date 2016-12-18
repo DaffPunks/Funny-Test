@@ -26,6 +26,11 @@ class Migration_Add_Lottery extends CI_Migration
                 'type' => 'TINYINT',
                 'default' => false
             ),
+            'visitors' => array(
+                'type' => 'INT',
+                'constraint' => 5,
+                'default' => 0
+            ),
         ));
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('lottery');

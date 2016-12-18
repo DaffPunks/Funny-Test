@@ -22,6 +22,8 @@ class User_model extends CI_Model
             'is_winner' => $is_winner
         );
 
-        return $this->db->insert('users', $data);
+        $this->db->insert('users', $data);
+
+        return $this->db->insert_id();
     }
 }
