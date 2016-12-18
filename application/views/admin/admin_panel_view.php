@@ -17,25 +17,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="admin-title">Days statistic</div>
             <div class="admin-days">
                 <div class="row">
-                    <div class="admin-days-date col-lg-4">
+                    <div class="admin-days-date col-lg-4 col-md-4 col-sm-2 col-xs-4">
                         Date
                     </div>
-                    <div class="admin-days-date col-lg-4">
+                    <div class="admin-days-date col-lg-4 col-md-4 col-sm-2 col-xs-4">
                         Winner ID
                     </div>
-                    <div class="admin-days-date col-lg-4">
+                    <div class="admin-days-date col-lg-4 col-md-4 col-sm-2 col-xs-4">
                         Participant's
                     </div>
                 </div>
                 <?php foreach ($days as $day) { ?>
                 <div class="row admin-day">
-                    <div class="admin-days-date col-lg-4">
+                    <div class="admin-days-date col-lg-4 col-md-4 col-sm-2 col-xs-4">
                         <?=$day["date"] ?>
                     </div>
-                    <div class="admin-days-date col-lg-4">
+                    <div class="admin-days-date col-lg-4 col-md-4 col-sm-2 col-xs-4">
                         <?php if($day["have_winner"]) {echo $day["user_id"];} else { echo "No winner yet";} ?>
                     </div>
-                    <div class="admin-days-date col-lg-4">
+                    <div class="admin-days-date col-lg-4 col-md-4 col-sm-2 col-xs-4">
                         <?=$day["visitors"] ?>
                     </div>
                 </div>
@@ -45,25 +45,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="admin-title">Participant's statistic</div>
             <div class="admin-days">
                 <div class="row">
-                    <div class="admin-days-date col-lg-4">
+                    <div class="admin-days-date col-lg-4 col-md-4 col-sm-2 col-xs-4">
                         ID
                     </div>
-                    <div class="admin-days-date col-lg-4">
+                    <div class="admin-days-date col-lg-4 col-md-4 col-sm-2 col-xs-4">
                         Person Type
                     </div>
-                    <div class="admin-days-date col-lg-4">
+                    <div class="admin-days-date col-lg-4 col-md-4 col-sm-2 col-xs-4">
                         Time
                     </div>
                 </div>
                 <?php foreach ($users as $user) { ?>
                     <div class="row admin-day <?php if($user["is_winner"]) {echo "user-winner";} ?>">
-                        <div class="admin-days-date col-lg-4">
+                        <div class="admin-days-date col-lg-4 col-md-4 col-sm-2 col-xs-4">
                             <?=$user["id"] ?>
                         </div>
-                        <div class="admin-days-date col-lg-4">
+                        <div class="admin-days-date col-lg-4 col-md-4 col-sm-2 col-xs-4">
                             <?=$user["person_type"] ?>
                         </div>
-                        <div class="admin-days-date col-lg-4">
+                        <div class="admin-days-date col-lg-4 col-md-4 col-sm-2 col-xs-4">
                             <?=$user["created_at"] ?>
                         </div>
                     </div>
