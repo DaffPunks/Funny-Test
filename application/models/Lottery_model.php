@@ -38,6 +38,8 @@ class Lottery_model extends CI_Model
                 for($i = $last_day["id"] - 1; $i >= 1; $i--) {
                     $chance += $this->getVisitors($i);
                 }
+
+                $chance = $chance / ($last_day["id"] - 1);
             }
 
             if($last_day["id"] == $this->getCurrentDay()["id"]) {

@@ -31,9 +31,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <form id="form" action="/result" method="post">
             <div id="questions">
                 <p>It's good weather today?</p>
-                <p>It's good weather today?</p>
-                <p>It's good weather today?</p>
-                <p>It's good weather today?</p>
+                <p>Did you sleep well?</p>
+                <p>Would you like to take a nap for a while now?</p>
+                <p>Do you feel full of energy and vitality?</p>
             </div>
         </form>
     </div>
