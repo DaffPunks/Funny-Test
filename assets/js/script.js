@@ -14,10 +14,10 @@ class Questioner {
 
         count = childs.length;
 
-        for (let question of childs) {
+        for (let i = 0; i < childs.length; i++) {
 
-            let text = question.innerText;
-            let answer = question.getAttribute("data-answer");
+            let text = childs[i].innerText;
+            let answer = childs[i].getAttribute("data-answer");
 
             questionsArray.push({
                 "text": text,

@@ -25,46 +25,25 @@ var Questioner = function () {
 
             count = childs.length;
 
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
+            for (var i = 0; i < childs.length; i++) {
 
-            try {
-                for (var _iterator = childs[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var question = _step.value;
+                var text = childs[i].innerText;
+                var answer = childs[i].getAttribute("data-answer");
 
-
-                    var text = question.innerText;
-                    var answer = question.getAttribute("data-answer");
-
-                    questionsArray.push({
-                        "text": text,
-                        "answer": answer
-                    });
-                }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
+                questionsArray.push({
+                    "text": text,
+                    "answer": answer
+                });
             }
 
             var translate = 0;
 
-            for (var i = 0; i < questionsArray.length; i++) {
+            for (var _i = 0; _i < questionsArray.length; _i++) {
 
                 var newEl = document.createElement("div");
-                newEl.innerHTML = '<input hidden data-id="' + (i + 1) + '" name="answers[]">' + '<div class="main-question">' + questionsArray[i]["text"] + '</div>' + '<div class="main-buttons">' + '<button type="button" class="main-button yes-btn">' + 'Yes' + '</button>' + '<button type="button" class="main-button no-btn">' + 'No' + '</button>' + '</div>';
+                newEl.innerHTML = '<input hidden data-id="' + (_i + 1) + '" name="answers[]">' + '<div class="main-question">' + questionsArray[_i]["text"] + '</div>' + '<div class="main-buttons">' + '<button type="button" class="main-button yes-btn">' + 'Yes' + '</button>' + '<button type="button" class="main-button no-btn">' + 'No' + '</button>' + '</div>';
                 newEl.className = "row main-row";
-                newEl.setAttribute("data-question", i + 1);
+                newEl.setAttribute("data-question", _i + 1);
 
                 newEl.style.transform = 'translateX(' + translate + '%)';
 
