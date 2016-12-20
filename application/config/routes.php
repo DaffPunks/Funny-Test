@@ -56,4 +56,5 @@ $route['translate_uri_dashes'] = FALSE;
 $route['result']['post'] = 'quiz/result';
 
 $route['login'] = 'admin/main_view';
-$route['admin']['post'] = 'admin/admin_panel';
+$route['admin'] = 'admin/admin_panel';
+$route['admin/login']['post'] = 'admin/login';

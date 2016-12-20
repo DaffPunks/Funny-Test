@@ -9,6 +9,7 @@ class Admin extends CI_Controller
 
         $this->load->model('user_model');
         $this->load->model('lottery_model');
+        $this->load->model('admin_model');
     }
 
     public function main_view()
@@ -16,12 +17,19 @@ class Admin extends CI_Controller
         $this->load->view('admin/login_view');
     }
 
-    public function admin_panel() {
+    public function login() {
         $name = $this->input->post("login");
         $pass = $this->input->post("password");
 
-        if(strtolower($name) == "admin" && $pass == "123") {
+        if($this->admin_model->login($name, $pass)) {
+            redirect("/admin");
+        } else {
+            redirect("/login");
+        }
+    }
 
+    public function admin_panel() {
+        if ($this->admin_model->is_auth()) {
             $data["days"] = $this->lottery_model->getAllDays();
             $data["users"] = $this->user_model->get_users();
 

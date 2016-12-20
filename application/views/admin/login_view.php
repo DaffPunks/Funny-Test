@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
 <section class="login">
-    <form action="admin" method="post">
+    <form action="admin/login" method="post">
         <div class="login-title">
             Admin Panel
         </div>
