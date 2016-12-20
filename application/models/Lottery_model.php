@@ -62,10 +62,10 @@ class Lottery_model extends CI_Model
     private function getLastDay($days_offset)
     {
         $first_day = $this->db->get_where('lottery', array('date' => Carbon\Carbon::now()->addDays($days_offset)->format("Y-m-d")))->row_array();
-        $second_day = $this->db->get_where('lottery', array('date' => Carbon\Carbon::now()->addDays(-($days_offset + 1))->format("Y-m-d")))->row_array();
+        $second_day = $this->db->get_where('lottery', array('date' => Carbon\Carbon::now()->addDays($days_offset - 1)->format("Y-m-d")))->row_array();
 
         if (!$second_day["have_winner"] && !empty($second_day)) {
-            $this->getLastDay($days_offset + 1);
+            return $this->getLastDay($days_offset - 1);
         } else {
             return $first_day;
         }
